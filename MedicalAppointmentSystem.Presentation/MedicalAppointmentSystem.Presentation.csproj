@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MedicalAppointmentSystem.Application\MedicalAppointmentSystem.Application.csproj" />
+    <ProjectReference Include="..\MedicalAppointmentSystem.Domain\MedicalAppointmentSystem.Domain.csproj" />
+    <ProjectReference Include="..\MedicalAppointmentSystem.Infrastructure\MedicalAppointmentSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

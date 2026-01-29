@@ -1,0 +1,32 @@
+<Window x:Class="MedicalAppointmentSystem.Presentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedicalAppointmentSystem.Presentation"
+        xmlns:vm="clr-namespace:MedicalAppointmentSystem.Presentation.ViewModels"
+        xmlns:views="clr-namespace:MedicalAppointmentSystem.Presentation.Views"
+        mc:Ignorable="d"
+        Title="Medical Appointment System" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <views:LoginView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdminDashboardViewModel}">
+            <views:AdminDashboardView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DoctorDashboardViewModel}">
+            <views:DoctorDashboardView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PatientDashboardViewModel}">
+            <views:PatientDashboardView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
+</Window>

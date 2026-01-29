@@ -1,0 +1,149 @@
+<UserControl x:Class="MedicalAppointmentSystem.Presentation.Views.DoctorDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Grid Background="#EAF2F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#2980B9">
+            <Grid>
+                <TextBlock Text="{Binding WelcomeMessage}" 
+                           Foreground="White" 
+                           FontSize="20" 
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="20,0,0,0"/>
+                <Button Content="Logout" 
+                        Command="{Binding LogoutCommand}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,20,0"
+                        Padding="15,8"
+                        Background="#E74C3C"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Panel - Appointments List -->
+            <Border Grid.Column="0" Background="White" CornerRadius="8" Padding="20" Margin="0,0,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="My Appointments" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+
+                    <ListView Grid.Row="1" 
+                              ItemsSource="{Binding Appointments}" 
+                              SelectedItem="{Binding SelectedAppointment}"
+                              BorderThickness="0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Date" Width="130">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ScheduledAt, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Patient" DisplayMemberBinding="{Binding Patient.FullName}" Width="150"/>
+                                <GridViewColumn Header="Status" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="Completed"/>
+                                                        <Setter Property="Foreground" Value="#27AE60"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Consultation}" Value="{x:Null}">
+                                                                <Setter Property="Text" Value="Pending"/>
+                                                                <Setter Property="Foreground" Value="#E67E22"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Border>
+
+            <!-- Right Panel - Add Consultation -->
+            <Border Grid.Column="1" Background="White" CornerRadius="8" Padding="20" Margin="10,0,0,0">
+                <StackPanel>
+                    <TextBlock Text="Add Consultation" FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                    <TextBlock Text="Selected Appointment:" Margin="0,0,0,5" FontWeight="SemiBold"/>
+                    <TextBlock Margin="0,0,0,15" Foreground="#666">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="No appointment selected"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedAppointment}" Value="{x:Null}">
+                                        <Setter Property="Text" Value="No appointment selected"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock Text="{Binding SelectedAppointment.Patient.FullName}" 
+                               FontSize="14" 
+                               Foreground="#2980B9"
+                               Margin="0,0,0,15"/>
+
+                    <TextBlock Text="Diagnosis:" Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding Diagnosis, UpdateSourceTrigger=PropertyChanged}" 
+                             Height="80"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             Padding="8"
+                             Margin="0,0,0,15"/>
+
+                    <TextBlock Text="Treatment:" Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding Treatment, UpdateSourceTrigger=PropertyChanged}" 
+                             Height="80"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             Padding="8"
+                             Margin="0,0,0,20"/>
+
+                    <Button Content="Add Consultation" 
+                            Command="{Binding AddConsultationCommand}"
+                            Background="#27AE60"
+                            Foreground="White"
+                            Padding="15,10"
+                            FontSize="14"
+                            BorderThickness="0"
+                            Cursor="Hand"/>
+
+                    <TextBlock Text="{Binding StatusMessage}" 
+                               Foreground="#27AE60" 
+                               Margin="0,15,0,0"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
