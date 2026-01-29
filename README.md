@@ -509,20 +509,4 @@ The database will be automatically created and seeded with test data.
 
 ---
 
-## License
 
-This project is licensed under the MIT License.
-
----
-
-## Author
-
-Created as a demonstration of OOP principles and Design Patterns in a real-world application.
-
----
-
-## Acknowledgments
-
-- Clean Architecture principles by Robert C. Martin
-- MVVM pattern from Microsoft
-- Design Patterns from Gang of Four
